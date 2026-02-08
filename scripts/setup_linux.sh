@@ -177,8 +177,29 @@ EOF
     if command -v cargo &> /dev/null; then
         echo -e "${BLUE}Building project with Cargo...${NC}"
         cargo build --release
-    else
-        echo -e "${YELLOW}Cargo not found. Skipping build. You must build manually later.${NC}"
+    fi
+
+    # Post-Build Verification
+    BINARY_PATH="./target/release/api-server"
+    if [ ! -f "$BINARY_PATH" ]; then
+        echo -e "${RED}Error: Build failed or binary not found at $BINARY_PATH${NC}"
+        echo -e "${YELLOW}Please try running 'cargo build --release' manually.${NC}"
+        exit 1
+    fi
+
+    # SELinux Mitigation (Critical for Oracle/RHEL 8+)
+    if command -v getenforce &> /dev/null; then
+        if [ "$(getenforce)" = "Enforcing" ]; then
+            echo -e "${BLUE}SELinux detected (Enforcing). Applying permissions...${NC}"
+            if [ "$IS_ROOT" = true ]; then
+                # Apply bin_t to allow systemd execution from home
+                chcon -t bin_t "$BINARY_PATH" || echo -e "${YELLOW}Warning: Could not set SELinux context on binary.${NC}"
+                # Ensure the directory is accessible to systemd/other users if needed
+                chmod +x . target target/release
+            else
+                echo -e "${YELLOW}Warning: Root required to apply SELinux contexts. Service may still fail.${NC}"
+            fi
+        fi
     fi
 
     # Apply Tweaks
@@ -207,6 +228,7 @@ EOF
         if [ "$IS_ROOT" = true ]; then
             echo -e "${BLUE}Installing Systemd service...${NC}"
             WORKDIR=$(pwd)
+            ABS_BINARY=$(realpath "$BINARY_PATH")
             cat << EOF > /etc/systemd/system/mineserv.service
 [Unit]
 Description=Mineserv Minecraft Server Manager
@@ -216,11 +238,12 @@ After=network.target
 Type=simple
 User=$SERVICE_USER
 WorkingDirectory=$WORKDIR
-ExecStart=$WORKDIR/target/release/api-server
+ExecStart=$ABS_BINARY
 Restart=always
 RestartSec=10
 LimitNOFILE=100000
 ReadWritePaths=$WORKDIR
+AmbientCapabilities=CAP_NET_BIND_SERVICE
 
 [Install]
 WantedBy=multi-user.target
