@@ -111,10 +111,10 @@ function render() {
 
     if (state.currentView === 'dashboard') {
         loadDashboardData();
-        state.pollInterval = setInterval(loadDashboardData, 3000);
+        state.pollInterval = setInterval(loadDashboardData, 10000);
     } else if (state.currentServer) {
         loadServerData(true);
-        state.pollInterval = setInterval(() => loadServerData(false), 2000);
+        state.pollInterval = setInterval(() => loadServerData(false), 5000);
     }
 }
 
@@ -228,6 +228,13 @@ async function loadServerData(fullRender = false) {
                     </div>
                 `;
             }
+        }
+
+        // Auto-connect console if server became running and we are on console tab
+        if (!fullRender && state.currentTab === 'console' && server.state === 'running') {
+             if (!ws || ws.readyState !== WebSocket.OPEN) {
+                 setupConsole(server.id);
+             }
         }
 
         if (fullRender) {
