@@ -1,0 +1,266 @@
+:root {
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --bg-tertiary: #2d2d2d;
+
+    --accent: #3b82f6;
+    --accent-hover: #2563eb;
+
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --text-muted: #666666;
+
+    --border: #333333;
+
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --error: #ef4444;
+
+    --sidebar-width: 200px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.4;
+    font-size: 14px;
+}
+
+/* Layout */
+.layout-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    padding: 20px;
+}
+
+/* Nav */
+.nav-section {
+    margin-bottom: 20px;
+}
+
+.nav-label {
+    padding: 15px 15px 5px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.nav-item {
+    padding: 10px 15px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    cursor: pointer;
+    display: block;
+}
+
+.nav-item:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.nav-item.active {
+    background: var(--accent);
+    color: white;
+}
+
+/* Cards */
+.card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.btn {
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: white;
+}
+
+.btn-primary {
+    background: var(--accent);
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+}
+
+.btn-secondary {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+}
+
+.btn-danger {
+    background: var(--error);
+}
+
+.btn-success {
+    background: var(--success);
+}
+
+.btn-sm {
+    padding: 3px 6px;
+    font-size: 10px;
+}
+
+/* Forms */
+.input,
+.select,
+.textarea {
+    width: 100%;
+    padding: 6px 10px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    color: white;
+    font-size: 13px;
+    outline: none;
+}
+
+.input:focus {
+    border-color: var(--accent);
+}
+
+/* Console */
+.console-wrapper {
+    background: #000;
+    border: 1px solid var(--border);
+}
+
+.console {
+    height: 400px;
+    padding: 10px;
+    font-family: monospace;
+    font-size: 12px;
+    overflow-y: auto;
+    color: #0f0;
+    background: #000;
+}
+
+.console-input-area {
+    display: flex;
+    border-top: 1px solid var(--border);
+    padding: 5px;
+}
+
+/* File Manager */
+.file-item {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.file-item:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Badges */
+.badge {
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.badge-success {
+    background: var(--success);
+}
+
+.badge-error {
+    background: var(--error);
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    width: 400px;
+    padding: 15px;
+}
+
+/* Utilities */
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.gap-1 {
+    gap: 5px;
+}
+
+.gap-2 {
+    gap: 10px;
+}
+
+.mb-1 {
+    margin-bottom: 10px;
+}
+
+.mb-2 {
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+h1 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 14px;
+    margin-bottom: 10px;
+}

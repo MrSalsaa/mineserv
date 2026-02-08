@@ -1,0 +1,22 @@
+[Unit]
+Description=Mineserv Minecraft Server Manager
+After=network.target
+
+[Service]
+Type=simple
+User=%u
+WorkingDirectory=/home/%u/work/tries/mineserv
+ExecStart=/home/%u/work/tries/mineserv/target/release/api-server
+Restart=always
+RestartSec=10
+
+# Security and Performance
+LimitNOFILE=100000
+ReadWritePaths=/home/%u/work/tries/mineserv
+
+# Environment variables (Alternatively use a .env file)
+# Environment=ADMIN_PASSWORD=yourpassword
+# Environment=DATABASE_URL=sqlite:///home/%u/work/tries/mineserv/data/mineserv.db
+
+[Install]
+WantedBy=multi-user.target

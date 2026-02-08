@@ -1,0 +1,36 @@
+# --- Rust ---
+/target/
+**/*.rs.bk
+# Note: Cargo.lock is committed for applications to ensure consistent builds
+# !Cargo.lock 
+
+# --- Development / Env ---
+.env
+.env.*
+!.env.example
+
+# --- Database / Data ---
+*.db
+*.db-shm
+*.db-wal
+/servers/
+/data/
+/backups/
+
+# --- IDEs / Editors ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.fleet/
+.hx/
+
+# --- System ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# --- Logs ---
+*.log
+/logs/

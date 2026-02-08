@@ -1,0 +1,48 @@
+[package]
+name = "api-server"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "api-server"
+path = "src/main.rs"
+
+[dependencies]
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+
+# Server manager
+server-manager = { path = "../server-manager" }
+
+# Web framework
+axum = { version = "0.7", features = ["ws", "macros", "multipart"] }
+tower = { version = "0.4", features = ["util"] }
+tower-http = { version = "0.5", features = ["fs", "cors", "trace"] }
+
+# Database
+sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "sqlite"] }
+
+# Authentication
+jsonwebtoken = "9.3"
+bcrypt = "0.15"
+
+# Environment
+dotenvy = "0.15"
+
+# Time
+chrono = "0.4"
+
+# Futures
+futures = "0.3"
+
+# UUID
+uuid = { version = "1.11", features = ["v4", "serde"] }
+
+# URL encoding
+urlencoding = "2.1"
+libc = "0.2"
