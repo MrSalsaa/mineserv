@@ -158,6 +158,21 @@ SERVERS_DIR=$SERVERS_DIR
 JWT_SECRET=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 32)
 EOF
 
+    # Rust Toolchain Check/Install
+    if ! command -v cargo &> /dev/null; then
+        echo -e "\n${YELLOW}Rust toolchain (Cargo) not found.${NC}"
+        read -p "Would you like to install the Rust toolchain now? [Y/n]: " INSTALL_RUST
+        INSTALL_RUST=${INSTALL_RUST:-Y}
+        if [[ "$INSTALL_RUST" =~ ^[Yy]$ ]]; then
+            echo -e "${BLUE}Installing Rust via rustup...${NC}"
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+            source "$HOME/.cargo/env"
+            echo -e "${GREEN}Rust installed successfully.${NC}"
+        else
+            echo -e "${YELLOW}Skipping Rust installation. Build will be skipped.${NC}"
+        fi
+    fi
+
     # Build Project
     if command -v cargo &> /dev/null; then
         echo -e "${BLUE}Building project with Cargo...${NC}"
