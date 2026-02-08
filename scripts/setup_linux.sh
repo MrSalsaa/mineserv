@@ -143,7 +143,7 @@ main() {
             ;;
         fedora|ol|rhel|centos|almalinux|rocky)
             install_pkg java-21-openjdk-headless sqlite curl openssl-devel
-            [[ "$OS_ID" == "ol" || "$OS_ID" == "rhel" ]] && install_pkg "development tools"
+            [[ "$OS_ID" == "ol" || "$OS_ID" == "rhel" ]] && install_pkg gcc make pkgconfig
             ;;
     esac
 
