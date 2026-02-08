@@ -56,7 +56,7 @@ graph TD
 ### Quick Start
 1. **Clone & Configure**:
    ```bash
-   git clone https://github.com/vpastila/mineserv.git
+   git clone https://github.com/MrSalsaa/mineserv.git
    cd mineserv
    cp .env.example .env 
    ```
