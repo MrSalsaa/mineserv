@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE = 'http://localhost:8080/api';
+const API_BASE = '/api';
 
 // State management
 const state = {
@@ -299,7 +299,7 @@ let ws = null;
 function setupConsole(id) {
     if (ws) ws.close();
     const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const host = API_BASE.replace('http://', '').replace('https://', '').replace('/api', '');
+    const host = location.host;
     ws = new WebSocket(`${proto}//${host}/api/servers/${id}/console`);
     const out = document.getElementById('console-out');
     ws.onmessage = (e) => {
